@@ -2,6 +2,7 @@ import requests
 import bs4
 from bs4 import BeautifulSoup
 import time
+import pandas as pd
 import fetch_member_data
 
 
@@ -57,11 +58,14 @@ def fetch_member_info(address):
     height = None
 
     for elem in tr:
-        if '血液型' == str(elem.contents[0].contents[0]):
-            blood_type = elem.contents[1].text.strip('\n').split('[')[0]
-        if '身長' == str(elem.contents[0].contents[0]):
-            height = elem.contents[1].text.strip('\n').split('[')[0]
-        if blood_type is not None and height is not None:
+        if hasattr(elem.contents[0], 'contents'):
+            if '血液型' == str(elem.contents[0].contents[0]):
+                blood_type = elem.contents[1].text.strip('\n').split('[')[0]
+            if '身長' in str(elem.contents[0].contents[0]):
+                height = elem.contents[1].text.strip('\n').split('[')[0].split(' ')[0]
+            if blood_type is not None and height is not None:
+                break
+        else:
             break
 
     description = soup.find_all(["h2", "h3", "li"])
@@ -108,6 +112,10 @@ def fetch_member_info(address):
     attributes['negative_description'] = negative_sentences
     attributes['other_description'] = other_sentences
 
+    # reshape data
+    if height is not None:
+        height = float(height.strip('cm'))
+
     return blood_type, height, attributes
 
 
@@ -122,4 +130,53 @@ for group in all_data.keys():
         all_data[group][i]['attributes'] = attributes_
 
         print(all_data[group][i])
-        time.sleep(5)  # サーバの負荷軽減
+        time.sleep(3)  # サーバの負荷軽減
+
+akb_df = pd.DataFrame(all_data['AKB'])
+akb_og_df = pd.DataFrame(all_data['AKB_OG'])
+ske_df = pd.DataFrame(all_data['SKE'])
+ske_og_df = pd.DataFrame(all_data['SKE_OG'])
+nmb_df = pd.DataFrame(all_data['NMB'])
+nmb_og_df = pd.DataFrame(all_data['NMB_OG'])
+hkt_df = pd.DataFrame(all_data['HKT'])
+hkt_og_df = pd.DataFrame(all_data['HKT_OG'])
+ngt_df = pd.DataFrame(all_data['NGT'])
+ngt_og_df = pd.DataFrame(all_data['NGT_OG'])
+stu_df = pd.DataFrame(all_data['STU'])
+stu_og_df = pd.DataFrame(all_data['STU_OG'])
+
+akb_all_df = pd.concat([akb_df, akb_og_df])
+ske_all_df = pd.concat([ske_df, ske_og_df])
+nmb_all_df = pd.concat([nmb_df, nmb_og_df])
+hkt_all_df = pd.concat([hkt_df, hkt_og_df])
+ngt_all_df = pd.concat([ngt_df, ngt_og_df])
+stu_all_df = pd.concat([stu_df, stu_og_df])
+
+akbg_df = pd.concat([akb_df, ske_df, nmb_df, hkt_df, ngt_df, stu_df])
+akbg_og_df = pd.concat([akb_og_df, ske_og_df, nmb_og_df, hkt_og_df, ngt_og_df, stu_og_df])
+akbg_all_df = pd.concat([akbg_df, akbg_og_df])
+
+# save data
+akb_df.to_csv('data/akb.csv', index=False)
+akb_og_df.to_csv('data/akb_og.csv', index=False)
+ske_df.to_csv('data/ske.csv', index=False)
+ske_og_df.to_csv('data/ske_og.csv', index=False)
+nmb_df.to_csv('data/nmb.csv', index=False)
+nmb_og_df.to_csv('data/nmb_og.csv', index=False)
+hkt_df.to_csv('data/hkt.csv', index=False)
+hkt_og_df.to_csv('data/hkt_og.csv', index=False)
+ngt_df.to_csv('data/ngt.csv', index=False)
+ngt_og_df.to_csv('data/ngt_og.csv', index=False)
+stu_df.to_csv('data/stu.csv', index=False)
+stu_og_df.to_csv('data/stu_og.csv', index=False)
+
+akb_all_df.to_csv('data/akb_all.csv', index=False)
+ske_all_df.to_csv('data/ske_all.csv', index=False)
+nmb_all_df.to_csv('data/nmb_all.csv', index=False)
+hkt_all_df.to_csv('data/hkt_all.csv', index=False)
+ngt_all_df.to_csv('data/ngt_all.csv', index=False)
+stu_all_df.to_csv('data/stu_all.csv', index=False)
+
+akbg_df.to_csv('data/akbg.csv', index=False)
+akbg_og_df.to_csv('data/akbg_og.csv', index=False)
+akbg_all_df.to_csv('data/akbg_all.csv', index=False)

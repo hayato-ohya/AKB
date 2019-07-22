@@ -82,6 +82,14 @@ def fetch_member_list(members):
                         else:
                             note.append(note_list[j].strip('\n'))
 
+            # reshape data
+            if len(note) == 0:
+                note = None
+            if team1 == '':
+                team1 = None
+            if type(nickname) is list and len(nickname) == 1:
+                nickname = nickname[0]
+
             member_dict['birthday'] = birthday
             member_dict['enrollment'] = enrollment
             member_dict['full_name'] = full_name
