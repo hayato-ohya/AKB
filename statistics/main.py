@@ -1,6 +1,8 @@
 import os
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import japanmap as jpm
 
 data_folder = '../data'
 
@@ -12,123 +14,183 @@ ngt = pd.read_csv(os.path.join(data_folder, 'ngt.csv'))
 stu = pd.read_csv(os.path.join(data_folder, 'stu.csv'))
 akbg = pd.read_csv(os.path.join(data_folder, 'akbg.csv'))
 
+all_data = {'AKB': akb, 'SKE': ske, 'NMB': nmb, 'HKT': hkt, 'NGT': ngt, 'STU': stu, 'AKBG': akbg}
+
 # 年齢, 身長, 出身地, 血液型
 # 身長
-height_akb_mean = akb['height'].mean()
-height_akb_var = akb['height'].var()
-height_ske_mean = ske['height'].mean()
-height_ske_var = ske['height'].var()
-height_nmb_mean = nmb['height'].mean()
-height_nmb_var = nmb['height'].var()
-height_hkt_mean = hkt['height'].mean()
-height_hkt_var = hkt['height'].var()
-height_ngt_mean = ngt['height'].mean()
-height_ngt_var = ngt['height'].var()
-height_stu_mean = stu['height'].mean()
-height_stu_var = stu['height'].var()
-height_akbg_mean = akbg['height'].mean()
-height_akbg_var = akbg['height'].var()
+heights = {}
+for key in all_data.keys():
+    heights[key] = [all_data[key]['height'].mean(), all_data[key]['height'].std()]
 
-print('# 身長=====================')
-print('    | 平均         | 分散')
-print('---------------------------')
-print('AKB |', '{:.2f}cm'.format(np.round(height_akb_mean, decimals=2)),
-      '    | {:.2f}'.format(np.round(height_akb_var, decimals=2)))
-print('SKE |', '{:.2f}cm'.format(np.round(height_ske_mean, decimals=2)),
-      '    | {:.2f}'.format(np.round(height_ske_var, decimals=2)))
-print('NMB |', '{:.2f}cm'.format(np.round(height_nmb_mean, decimals=2)),
-      '    | {:.2f}'.format(np.round(height_nmb_var, decimals=2)))
-print('HKT |', '{:.2f}cm'.format(np.round(height_hkt_mean, decimals=2)),
-      '    | {:.2f}'.format(np.round(height_hkt_var, decimals=2)))
-print('NGT |', '{:.2f}cm'.format(np.round(height_ngt_mean, decimals=2)),
-      '    | {:.2f}'.format(np.round(height_ngt_var, decimals=2)))
-print('STU |', '{:.2f}cm'.format(np.round(height_stu_mean, decimals=2)),
-      '    | {:.2f}'.format(np.round(height_stu_var, decimals=2)))
-print('全体|', '{:.2f}cm'.format(np.round(height_akbg_mean, decimals=2)),
-      '    | {:.2f}'.format(np.round(height_akbg_var, decimals=2)))
+print('# 身長===========================')
+print('     | 平均         | 標準偏差')
+print('---------------------------------')
+for key in heights.keys():
+    if key == 'AKBG':
+        print('全体', '|', '{:.2f}cm'.format(np.round(heights[key][0], decimals=2)),
+              '    | {:.2f}'.format(np.round(heights[key][1], decimals=2)))
+    else:
+        print(key, ' |', '{:.2f}cm'.format(np.round(heights[key][0], decimals=2)),
+              '    | {:.2f}'.format(np.round(heights[key][1], decimals=2)))
 
-# height_df = pd.DataFrame({'AKB': {'mean': height_akb_mean, 'variance': height_akb_var},
-# #                           'SKE': {'mean': height_ske_mean, 'variance': height_ske_var},
-# #                           'NMB': {'mean': height_nmb_mean, 'variance': height_nmb_var},
-# #                           'HKT': {'mean': height_hkt_mean, 'variance': height_hkt_var},
-# #                           'NGT': {'mean': height_ngt_mean, 'variance': height_ngt_var},
-# #                           'STU': {'mean': height_stu_mean, 'variance': height_stu_var},
-# #                           'ALL': {'mean': height_akbg_mean, 'variance': height_akbg_var}})
-# # print(height_df.T)
+print('---------------------------------')
 
 # 血液型
-blood_type_akb = {'A型': len(akb[akb['blood_type'] == 'A型']),
-                  'B型': len(akb[akb['blood_type'] == 'B型']),
-                  'O型': len(akb[akb['blood_type'] == 'O型']),
-                  'AB型': len(akb[akb['blood_type'] == 'AB型']),
-                  '不明': len(akb[akb['blood_type'] == '不明'])}
-blood_type_ske = {'A型': len(ske[ske['blood_type'] == 'A型']),
-                  'B型': len(ske[ske['blood_type'] == 'B型']),
-                  'O型': len(ske[ske['blood_type'] == 'O型']),
-                  'AB型': len(ske[ske['blood_type'] == 'AB型']),
-                  '不明': len(ske[ske['blood_type'] == '不明'])}
-blood_type_nmb = {'A型': len(nmb[nmb['blood_type'] == 'A型']),
-                  'B型': len(nmb[nmb['blood_type'] == 'B型']),
-                  'O型': len(nmb[nmb['blood_type'] == 'O型']),
-                  'AB型': len(nmb[nmb['blood_type'] == 'AB型']),
-                  '不明': len(nmb[nmb['blood_type'] == '不明'])}
-blood_type_hkt = {'A型': len(hkt[hkt['blood_type'] == 'A型']),
-                  'B型': len(hkt[hkt['blood_type'] == 'B型']),
-                  'O型': len(hkt[hkt['blood_type'] == 'O型']),
-                  'AB型': len(hkt[hkt['blood_type'] == 'AB型']),
-                  '不明': len(hkt[hkt['blood_type'] == '不明'])}
-blood_type_ngt = {'A型': len(ngt[ngt['blood_type'] == 'A型']),
-                  'B型': len(ngt[ngt['blood_type'] == 'B型']),
-                  'O型': len(ngt[ngt['blood_type'] == 'O型']),
-                  'AB型': len(ngt[ngt['blood_type'] == 'AB型']),
-                  '不明': len(ngt[ngt['blood_type'] == '不明'])}
-blood_type_stu = {'A型': len(stu[stu['blood_type'] == 'A型']),
-                  'B型': len(stu[stu['blood_type'] == 'B型']),
-                  'O型': len(stu[stu['blood_type'] == 'O型']),
-                  'AB型': len(stu[stu['blood_type'] == 'AB型']),
-                  '不明': len(stu[stu['blood_type'] == '不明'])}
-blood_type_akbg = {'A型': len(akbg[akbg['blood_type'] == 'A型']),
-                   'B型': len(akbg[akbg['blood_type'] == 'B型']),
-                   'O型': len(akbg[akbg['blood_type'] == 'O型']),
-                   'AB型': len(akbg[akbg['blood_type'] == 'AB型']),
-                   '不明': len(akbg[akbg['blood_type'] == '不明'])}
+blood_type = {}
+for key in all_data.keys():
+    blood_type[key] = {'A型': len(all_data[key][all_data[key]['blood_type'] == 'A型']),
+                       'B型': len(all_data[key][all_data[key]['blood_type'] == 'B型']),
+                       'O型': len(all_data[key][all_data[key]['blood_type'] == 'O型']),
+                       'AB型': len(all_data[key][all_data[key]['blood_type'] == 'AB型']),
+                       '不明': len(all_data[key][all_data[key]['blood_type'] == '不明'])}
 
 print('')
 print('# 血液型 ===================================================')
-print('    | A型         | B型         | O型         | AB型        ')
+print('     | A型         | B型         | O型         | AB型        ')
 print('------------------------------------------------------------')
-print('AKB |',
-      '{:.2f}%'.format(np.round(blood_type_akb['A型'] / (len(akb) - blood_type_akb['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_akb['B型'] / (len(akb) - blood_type_akb['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_akb['O型'] / (len(akb) - blood_type_akb['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_akb['AB型'] / (len(akb) - blood_type_akb['不明']) * 100, decimals=2)))
-print('SKE |',
-      '{:.2f}%'.format(np.round(blood_type_ske['A型'] / (len(ske) - blood_type_ske['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_ske['B型'] / (len(ske) - blood_type_ske['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_ske['O型'] / (len(ske) - blood_type_ske['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_ske['AB型'] / (len(ske) - blood_type_ske['不明']) * 100, decimals=2)))
-print('NMB |',
-      '{:.2f}%'.format(np.round(blood_type_nmb['A型'] / (len(nmb) - blood_type_nmb['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_nmb['B型'] / (len(nmb) - blood_type_nmb['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_nmb['O型'] / (len(nmb) - blood_type_nmb['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_nmb['AB型'] / (len(nmb) - blood_type_nmb['不明']) * 100, decimals=2)))
-print('HKT |',
-      '{:.2f}%'.format(np.round(blood_type_hkt['A型'] / (len(hkt) - blood_type_hkt['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_hkt['B型'] / (len(hkt) - blood_type_hkt['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_hkt['O型'] / (len(hkt) - blood_type_hkt['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_hkt['AB型'] / (len(hkt) - blood_type_hkt['不明']) * 100, decimals=2)))
-print('NGT |',
-      '{:.2f}%'.format(np.round(blood_type_ngt['A型'] / (len(ngt) - blood_type_ngt['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_ngt['B型'] / (len(ngt) - blood_type_ngt['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_ngt['O型'] / (len(ngt) - blood_type_ngt['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_ngt['AB型'] / (len(ngt) - blood_type_ngt['不明']) * 100, decimals=2)))
-print('STU |',
-      '{:.2f}%'.format(np.round(blood_type_stu['A型'] / (len(stu) - blood_type_stu['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_stu['B型'] / (len(stu) - blood_type_stu['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_stu['O型'] / (len(stu) - blood_type_stu['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_stu['AB型'] / (len(stu) - blood_type_stu['不明']) * 100, decimals=2)))
-print('全体|',
-      '{:.2f}%'.format(np.round(blood_type_akbg['A型'] / (len(akbg) - blood_type_akbg['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_akbg['B型'] / (len(akbg) - blood_type_akbg['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_akbg['O型'] / (len(akbg) - blood_type_akbg['不明']) * 100, decimals=2)),
-      '     | {:.2f}%'.format(np.round(blood_type_akbg['AB型'] / (len(akbg) - blood_type_akbg['不明']) * 100, decimals=2)))
+for key in blood_type.keys():
+    if key == 'AKBG':
+        print('全体', '|',
+              '{:.2f}%'.format(np.round(blood_type[key]['A型']
+                                        / (len(all_data[key]) - blood_type[key]['不明']) * 100, decimals=2)),
+              '     | {:.2f}%'.format(np.round(blood_type[key]['B型']
+                                               / (len(all_data[key]) - blood_type[key]['不明']) * 100, decimals=2)),
+              '     | {:.2f}%'.format(np.round(blood_type[key]['O型']
+                                               / (len(all_data[key]) - blood_type[key]['不明']) * 100, decimals=2)),
+              '     | {:.2f}%'.format(np.round(blood_type[key]['AB型']
+                                               / (len(all_data[key]) - blood_type[key]['不明']) * 100, decimals=2)))
+    else:
+        print(key, ' |',
+              '{:.2f}%'.format(np.round(blood_type[key]['A型']
+                                        / (len(all_data[key]) - blood_type[key]['不明']) * 100, decimals=2)),
+              '     | {:.2f}%'.format(np.round(blood_type[key]['B型']
+                                               / (len(all_data[key]) - blood_type[key]['不明']) * 100, decimals=2)),
+              '     | {:.2f}%'.format(np.round(blood_type[key]['O型']
+                                               / (len(all_data[key]) - blood_type[key]['不明']) * 100, decimals=2)),
+              '     | {:.2f}%'.format(np.round(blood_type[key]['AB型']
+                                               / (len(all_data[key]) - blood_type[key]['不明']) * 100, decimals=2)))
+print('------------------------------------------------------------')
+print('')
+
+
+# 年齢・誕生日
+def calc_age(birthday):
+    today = int(pd.to_datetime('today').strftime('%Y%m%d'))
+    birthday = int(birthday)
+    return int((today - birthday) / 10000)
+
+
+for key in all_data.keys():
+    all_data[key]['age'] = all_data[key]['birthday'].apply(lambda date: calc_age(date))
+
+print('# 誕生日===========================================================================================')
+print('     | 最年長                                     | 最年少')
+print('---------------------------------------------------------------------------------------------------')
+for key in all_data.keys():
+    if key == 'AKBG':
+        print_str = '全体' + ' | '
+    else:
+        print_str = key + '  | '
+
+    print_str = print_str \
+                + all_data[key][all_data[key]['birthday'] == all_data[key]['birthday'].min()]['full_name'].values[0]
+
+    if len(all_data[key][all_data[key]['birthday'] == all_data[key]['birthday'].min()]['full_name'].values[0]) == 4:
+        print_str = print_str + '  '
+    elif len(all_data[key][all_data[key]['birthday'] == all_data[key]['birthday'].min()]['full_name'].values[0]) == 3:
+        print_str = print_str + '    '
+
+    print_str = print_str + 'さん (' \
+                + str(all_data[key][all_data[key]['birthday'] == all_data[key]['birthday'].min()]['age'].values[0]) \
+                + '歳' \
+                + '| ' + str(all_data[key]['birthday'].min())[:4] + '年' \
+                + str(all_data[key]['birthday'].min())[4:6] + '月' \
+                + str(all_data[key]['birthday'].min())[6:] + '日生まれ' + ')'
+    print_str = print_str + ' | ' \
+                + all_data[key][all_data[key]['birthday'] == all_data[key]['birthday'].max()]['full_name'].values[0] \
+                + 'さん '
+
+    if len(all_data[key][all_data[key]['birthday'] == all_data[key]['birthday'].max()]['full_name'].values[0]) == 4:
+        print_str = print_str + '  '
+    elif len(all_data[key][all_data[key]['birthday'] == all_data[key]['birthday'].max()]['full_name'].values[0]) == 3:
+        print_str = print_str + '    '
+
+    print_str = print_str \
+                + '(' \
+                + str(all_data[key][all_data[key]['birthday'] == all_data[key]['birthday'].max()]['age'].values[0]) \
+                + '歳' + '| ' + str(all_data[key]['birthday'].max())[:4] + '年' \
+                + str(all_data[key]['birthday'].max())[4:6] + '月' \
+                + str(all_data[key]['birthday'].max())[6:] + '日生まれ' + ')'
+
+    print(print_str)
+
+print('---------------------------------------------------------------------------------------------------')
+print()
+
+ages = {}
+for key in all_data.keys():
+    ages[key] = [all_data[key]['age'].mean(), all_data[key]['age'].std()]
+
+print('# 年齢===========================')
+print('     | 平均        | 標準偏差')
+print('---------------------------------')
+for key in ages.keys():
+    if key == 'AKBG':
+        print('全体', '|', '{:.2f}歳'.format(np.round(ages[key][0], decimals=2)),
+              '    | {:.2f}'.format(np.round(ages[key][1], decimals=2)))
+    else:
+        print(key, ' |', '{:.2f}歳'.format(np.round(ages[key][0], decimals=2)),
+              '    | {:.2f}'.format(np.round(ages[key][1], decimals=2)))
+
+print('---------------------------------')
+print()
+
+# 出身地
+prefectures = {}
+for key in all_data:
+    tmp_dict = {}
+    for prefecture in jpm.pref_names:
+        tmp_dict[prefecture] = len(all_data[key][all_data[key]['prefecture'] == prefecture])
+
+    prefectures[key] = tmp_dict
+
+color_list = ['red', 'deeppink', 'orangered', 'gold', 'yellow', 'greenyellow',
+              'limegreen', 'darkcyan', 'blue', 'midnightblue']
+
+prefecture_colors = {}
+for key in prefectures.keys():
+    prefecture_color = {}
+    for prefecture in prefectures[key]:
+        if prefecture is not '_':
+            if prefectures[key][prefecture] > max(prefectures[key].values()) * 0.9:
+                prefecture_color[prefecture] = color_list[0]
+            elif prefectures[key][prefecture] > max(prefectures[key].values()) * 0.8:
+                prefecture_color[prefecture] = color_list[1]
+            elif prefectures[key][prefecture] > max(prefectures[key].values()) * 0.7:
+                prefecture_color[prefecture] = color_list[2]
+            elif prefectures[key][prefecture] > max(prefectures[key].values()) * 0.6:
+                prefecture_color[prefecture] = color_list[3]
+            elif prefectures[key][prefecture] > max(prefectures[key].values()) * 0.5:
+                prefecture_color[prefecture] = color_list[4]
+            elif prefectures[key][prefecture] > max(prefectures[key].values()) * 0.4:
+                prefecture_color[prefecture] = color_list[5]
+            elif prefectures[key][prefecture] > max(prefectures[key].values()) * 0.3:
+                prefecture_color[prefecture] = color_list[6]
+            elif prefectures[key][prefecture] > max(prefectures[key].values()) * 0.2:
+                prefecture_color[prefecture] = color_list[7]
+            elif prefectures[key][prefecture] > max(prefectures[key].values()) * 0.1:
+                prefecture_color[prefecture] = color_list[8]
+            elif prefectures[key][prefecture] >= 1:
+                prefecture_color[prefecture] = color_list[9]
+
+    prefecture_colors[key] = prefecture_color
+
+# for key in prefecture_colors.keys():
+#     plt.imshow(jpm.picture(prefecture_colors[key]))
+
+plt.imshow(jpm.picture(prefecture_colors['AKB']))
+# plt.imshow(jpm.picture(prefecture_colors['SKE']))
+# plt.imshow(jpm.picture(prefecture_colors['NMB']))
+# plt.imshow(jpm.picture(prefecture_colors['HKT']))
+# plt.imshow(jpm.picture(prefecture_colors['NGT']))
+# plt.imshow(jpm.picture(prefecture_colors['STU']))
