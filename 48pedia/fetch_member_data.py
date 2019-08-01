@@ -12,7 +12,9 @@ def fetch_member_list(members):
         elif len(members[i].contents) == 18 and ('最終在籍日' in str(members[i].contents[15].contents[0])):
             active_flg = False
 
-        if len(members[i].contents) == 18 and hasattr(members[i].contents[5].contents[0], 'contents'):
+        if len(members[i].contents) == 18 and hasattr(members[i].contents[5].contents[0], 'contents')\
+                or (len(members[i].contents) == 20 and hasattr(members[i].contents[5].contents[0], 'contents')):
+
             member_dict = {}
             if '・' in members[i].contents[1].text.strip('\n'):
                 team1 = members[i].contents[1].text.strip('\n').split('・')[0]

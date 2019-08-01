@@ -84,7 +84,7 @@ for key in all_data.keys():
     all_data[key]['age'] = all_data[key]['birthday'].apply(lambda date: calc_age(date))
 
 print('# 誕生日===========================================================================================')
-print('     | 最年長                                     | 最年少')
+print('     | 最年長                                      | 最年少')
 print('---------------------------------------------------------------------------------------------------')
 for key in all_data.keys():
     if key == 'AKBG':
