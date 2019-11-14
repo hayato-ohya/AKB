@@ -1,0 +1,158 @@
+{
+    "chapters": [
+        {
+            "id": 0,
+            "time_base": "1/1000",
+            "start": 0,
+            "start_time": "0.000000",
+            "end": 194761,
+            "end_time": "194.761000",
+            "tags": {
+                "title": "Chapter 1"
+            }
+        },
+        {
+            "id": 1,
+            "time_base": "1/1000",
+            "start": 194761,
+            "start_time": "194.761000",
+            "end": 426092,
+            "end_time": "426.092000",
+            "tags": {
+                "title": "Chapter 2"
+            }
+        },
+        {
+            "id": 2,
+            "time_base": "1/1000",
+            "start": 426092,
+            "start_time": "426.092000",
+            "end": 595228,
+            "end_time": "595.228000",
+            "tags": {
+                "title": "Chapter 3"
+            }
+        },
+        {
+            "id": 3,
+            "time_base": "1/1000",
+            "start": 595228,
+            "start_time": "595.228000",
+            "end": 815648,
+            "end_time": "815.648000",
+            "tags": {
+                "title": "Chapter 4"
+            }
+        },
+        {
+            "id": 4,
+            "time_base": "1/1000",
+            "start": 815648,
+            "start_time": "815.648000",
+            "end": 982849,
+            "end_time": "982.849000",
+            "tags": {
+                "title": "Chapter 5"
+            }
+        },
+        {
+            "id": 5,
+            "time_base": "1/1000",
+            "start": 982849,
+            "start_time": "982.849000",
+            "end": 1241574,
+            "end_time": "1241.574000",
+            "tags": {
+                "title": "Chapter 6"
+            }
+        },
+        {
+            "id": 6,
+            "time_base": "1/1000",
+            "start": 1241574,
+            "start_time": "1241.574000",
+            "end": 1493492,
+            "end_time": "1493.492000",
+            "tags": {
+                "title": "Chapter 7"
+            }
+        },
+        {
+            "id": 7,
+            "time_base": "1/1000",
+            "start": 1493492,
+            "start_time": "1493.492000",
+            "end": 2628126,
+            "end_time": "2628.126000",
+            "tags": {
+                "title": "Chapter 8"
+            }
+        },
+        {
+            "id": 8,
+            "time_base": "1/1000",
+            "start": 2628126,
+            "start_time": "2628.126000",
+            "end": 2826123,
+            "end_time": "2826.123000",
+            "tags": {
+                "title": "Chapter 9"
+            }
+        },
+        {
+            "id": 9,
+            "time_base": "1/1000",
+            "start": 2826123,
+            "start_time": "2826.123000",
+            "end": 3064061,
+            "end_time": "3064.061000",
+            "tags": {
+                "title": "Chapter 10"
+            }
+        },
+        {
+            "id": 10,
+            "time_base": "1/1000",
+            "start": 3064061,
+            "start_time": "3064.061000",
+            "end": 3261391,
+            "end_time": "3261.391000",
+            "tags": {
+                "title": "Chapter 11"
+            }
+        },
+        {
+            "id": 11,
+            "time_base": "1/1000",
+            "start": 3261391,
+            "start_time": "3261.391000",
+            "end": 3483647,
+            "end_time": "3483.647000",
+            "tags": {
+                "title": "Chapter 12"
+            }
+        },
+        {
+            "id": 12,
+            "time_base": "1/1000",
+            "start": 3483647,
+            "start_time": "3483.647000",
+            "end": 3624621,
+            "end_time": "3624.621000",
+            "tags": {
+                "title": "Chapter 13"
+            }
+        },
+        {
+            "id": 13,
+            "time_base": "1/1000",
+            "start": 3624621,
+            "start_time": "3624.621000",
+            "end": 3904901,
+            "end_time": "3904.901000",
+            "tags": {
+                "title": "Chapter 14"
+            }
+        }
+    ]
+}
