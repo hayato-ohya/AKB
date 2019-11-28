@@ -13,13 +13,18 @@ body {
 .player-global{
     display: flex;
 }
-.set-list{
+div.set-list{
     background-color: rgba(0, 0, 0, 0.6);
     border-color: aqua;
     color: aliceblue;
     width: 20%;
     z-index: 1;
 
+}
+ul.set-list{
+    list-style: none;
+    padding: 3%;
+    margin: 3%;
 }
 .video-container {
     border-bottom: 30px darkgray;

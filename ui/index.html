@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Video.js -->
     <link href="https://vjs.zencdn.net/7.5.5/video-js.css" rel="stylesheet" />
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
@@ -45,22 +47,49 @@
         <div class="player">
             <video
                     id="video-player"
-                    class="video-js vjs-big-play-centered"
+                    class="video-js vjs-big-play-centered vjs-16-9"
                     controls
                     preload="auto"
-                    width="1280"
-                    height="720"
                     data-setup="{}"
             >
                 <source src="nmb2_1.mp4" type="video/mp4" />
             </video>
             <script src="https://vjs.zencdn.net/7.5.5/video.js"></script>
         </div>
+        <!-- Set list -->
         <div class="set-list">
-            <ol>
+            <ul class="set-list">
                 <li>test1</li>
                 <li>test2</li>
-            </ol>
+                <script type="text/javascript">
+                    // Read JSON file
+                    const jsonUrl = "nmb2_1.json";
+                    $.getJSON(jsonUrl, function (data) {
+                        var start_times = [];
+                        $.each(data, function (key, val) {
+                           start_times.push("<li id='" + key + "'>" + val + "</li>")
+                        });
+                        $( "<ul/>", {
+                            "class": "set-list",
+                            html: start_times.join( "" )
+                        }).appendTo( "body" );
+
+                        console.log(data.chapters);
+                    });
+                    
+                    var jsonData;
+                    function readJsonFile() {
+                        $.ajaxSetup({async: false});//同期通信(json取ってくるまで待つ)
+                        $.getJSON(jsonUrl, function (data) {
+                            jsonData = data.param;
+                        });
+                        $.ajaxSetup({async: true});
+                    }
+                    readJsonFile()
+
+
+                </script>
+            </ul>
         </div>
     </div>
     <div class="video-info">
@@ -85,6 +114,8 @@
     <a href="https://twitter.com/recochoku_jp" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
     <p class="w3-medium">© AKS／© RecoChoku Co.,Ltd.</p>
 </footer>
+
+<script src="video_player.js"></script>
 
 </body>
 </html>
