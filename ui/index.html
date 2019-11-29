@@ -54,57 +54,26 @@
             >
                 <source src="nmb2_1.mp4" type="video/mp4" />
             </video>
-            <script src="https://vjs.zencdn.net/7.5.5/video.js"></script>
         </div>
         <!-- Set list -->
         <div class="set-list">
-            <ul class="set-list">
-                <li>test1</li>
-                <li>test2</li>
-                <script type="text/javascript">
-                    // Read JSON file
-                    const jsonUrl = "nmb2_1.json";
-                    $.getJSON(jsonUrl, function (data) {
-                        var start_times = [];
-                        $.each(data, function (key, val) {
-                           start_times.push("<li id='" + key + "'>" + val + "</li>")
-                        });
-                        $( "<ul/>", {
-                            "class": "set-list",
-                            html: start_times.join( "" )
-                        }).appendTo( "body" );
-
-                        console.log(data.chapters);
-                    });
-                    
-                    var jsonData;
-                    function readJsonFile() {
-                        $.ajaxSetup({async: false});//同期通信(json取ってくるまで待つ)
-                        $.getJSON(jsonUrl, function (data) {
-                            jsonData = data.param;
-                        });
-                        $.ajaxSetup({async: true});
-                    }
-                    readJsonFile()
-
-
-                </script>
-            </ul>
+            <ul class="set-list" id="ul-set-list"></ul>
         </div>
     </div>
     <div class="video-info">
-        <div class="video-title"> Hoge hoge!</div>
-        <div class="video-date">2019/11/26</div>
+        <div id="video-title" class="video-title"></div>
+        <div id="video-date" class="video-date"></div>
     </div>
 </div>
 
 <!-- Meta Info -->
-<div class="meta-info">
+<div class="global-container">
     <h1>メタ情報</h1>
+    <p id="test">映像解析で取得した女の子のデータとか入れたい</p>
 </div>
 
 <!-- Related Video -->
-<div class="related-video">
+<div class="global-container">
     <h1>関連動画</h1>
 </div>
 
@@ -115,6 +84,7 @@
     <p class="w3-medium">© AKS／© RecoChoku Co.,Ltd.</p>
 </footer>
 
+<script src="https://vjs.zencdn.net/7.5.5/video.js"></script>
 <script src="video_player.js"></script>
 
 </body>
