@@ -4,7 +4,7 @@
     "chapters": [
         {
             "id": 0,
-            "title": "overture(NMB48 ver.)",
+            "title": "Introduction",
             "time_base": "1/1000",
             "start": 0,
             "start_time": "0.000000",
@@ -16,7 +16,7 @@
         },
         {
             "id": 1,
-            "title": "パンキッシュ",
+            "title": "overture(NMB48 ver.)",
             "time_base": "1/1000",
             "start": 33800,
             "start_time": "33.800000",
@@ -28,7 +28,7 @@
         },
         {
             "id": 2,
-            "title": "マジジョテッペンブルース",
+            "title": "パンキッシュ",
             "time_base": "1/1000",
             "start": 88088,
             "start_time": "88.088000",
@@ -40,7 +40,7 @@
         },
         {
             "id": 3,
-            "title": "ナギイチ",
+            "title": "マジジョテッペンブルース",
             "time_base": "1/1000",
             "start": 296396,
             "start_time": "296.396000",
@@ -52,7 +52,7 @@
         },
         {
             "id": 4,
-            "title": "北川謙二",
+            "title": "MC",
             "time_base": "1/1000",
             "start": 526192,
             "start_time": "526.192000",
@@ -64,7 +64,7 @@
         },
         {
             "id": 5,
-            "title": "サササ サイコー！",
+            "title": "overture(NMB48 ver.)",
             "time_base": "1/1000",
             "start": 625492,
             "start_time": "625.492000",
@@ -76,7 +76,7 @@
         },
         {
             "id": 6,
-            "title": "僕が負けた夏",
+            "title": "六甲おろし",
             "time_base": "1/1000",
             "start": 680346,
             "start_time": "680.346000",
@@ -88,7 +88,7 @@
         },
         {
             "id": 7,
-            "title": "わるりん",
+            "title": "MC",
             "time_base": "1/1000",
             "start": 760727,
             "start_time": "760.727000",
@@ -100,7 +100,7 @@
         },
         {
             "id": 8,
-            "title": "春が来るまで",
+            "title": "overture(NMB48 ver.)",
             "time_base": "1/1000",
             "start": 878945,
             "start_time": "878.945000",
@@ -112,7 +112,7 @@
         },
         {
             "id": 9,
-            "title": "この世界が雪の中に埋もれる前に",
+            "title": "ナギイチ",
             "time_base": "1/1000",
             "start": 933933,
             "start_time": "933.933000",
@@ -124,7 +124,7 @@
         },
         {
             "id": 10,
-            "title": "Bird",
+            "title": "北川謙二",
             "time_base": "1/1000",
             "start": 1177076,
             "start_time": "1177.076000",
@@ -136,7 +136,7 @@
         },
         {
             "id": 11,
-            "title": "Dance メドレー ～Must be now／UZA／Escape～",
+            "title": "MC",
             "time_base": "1/1000",
             "start": 1413345,
             "start_time": "1413.345000",
@@ -148,7 +148,7 @@
         },
         {
             "id": 12,
-            "title": "僕は愛されてはいない",
+            "title": "サササ サイコー！",
             "time_base": "1/1000",
             "start": 2147345,
             "start_time": "2147.345000",
@@ -160,7 +160,7 @@
         },
         {
             "id": 13,
-            "title": "スカート、ひらり",
+            "title": "僕が負けた夏",
             "time_base": "1/1000",
             "start": 2288486,
             "start_time": "2288.486000",
@@ -172,7 +172,7 @@
         },
         {
             "id": 14,
-            "title": "ジッパー",
+            "title": "わるりん",
             "time_base": "1/1000",
             "start": 2483915,
             "start_time": "2483.915000",
@@ -184,7 +184,7 @@
         },
         {
             "id": 15,
-            "title": "太陽が坂道を昇る頃",
+            "title": "春が来るまで",
             "time_base": "1/1000",
             "start": 2659857,
             "start_time": "2659.857000",
@@ -196,7 +196,7 @@
         },
         {
             "id": 16,
-            "title": "空から愛が降って来る",
+            "title": "この世界が雪の中に埋もれる前に",
             "time_base": "1/1000",
             "start": 2865029,
             "start_time": "2865.029000",
@@ -208,7 +208,7 @@
         },
         {
             "id": 17,
-            "title": "理不尽ボール",
+            "title": "Bird",
             "time_base": "1/1000",
             "start": 3012209,
             "start_time": "3012.209000",
@@ -220,7 +220,7 @@
         },
         {
             "id": 18,
-            "title": "恋は災難",
+            "title": "Dance メドレー ～Must be now／UZA／Escape～",
             "time_base": "1/1000",
             "start": 3176440,
             "start_time": "3176.440000",
@@ -232,7 +232,7 @@
         },
         {
             "id": 19,
-            "title": "片想いよりも思い出を…",
+            "title": "僕は愛されてはいない",
             "time_base": "1/1000",
             "start": 3363660,
             "start_time": "3363.660000",
@@ -244,7 +244,7 @@
         },
         {
             "id": 20,
-            "title": "空腹で恋愛をするな",
+            "title": "スカート、ひらり",
             "time_base": "1/1000",
             "start": 3538535,
             "start_time": "3538.535000",
@@ -256,7 +256,7 @@
         },
         {
             "id": 21,
-            "title": "ロックだよ、人生は…",
+            "title": "ジッパー",
             "time_base": "1/1000",
             "start": 3714144,
             "start_time": "3714.144000",
@@ -268,7 +268,7 @@
         },
         {
             "id": 22,
-            "title": "しがみついた青春",
+            "title": "MC",
             "time_base": "1/1000",
             "start": 3880076,
             "start_time": "3880.076000",

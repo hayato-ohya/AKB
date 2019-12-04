@@ -23,22 +23,88 @@ let divVideoDate = document.getElementById("video-date");
 divVideoDate.append(videoDate);
 
 // Display information into list
-let i, ul, li, a, chapterTitle;
+let i, ul, li, a, ic, chapterTitle;
+let repeatFlg = false;
 ul = document.getElementById("ul-set-list");
 for (i=0; i<chapters.length; i++){
+    ic = document.createElement("i");
+    ic.className = "fa fa-stop";
+    ic.id = "icon-" + chapters[i].id.toString();
+
     a = document.createElement("a");
     a.href = "javascript:void(0);";
-    // a.onclick = "chapterClick();";
+
     li = document.createElement("li");
     li.id = chapters[i].id.toString();
+    li.onclick = chapterClick;
     chapterTitle = document.createTextNode(chapters[i].title);
 
+    a.append(ic);
+    a.append(" ");
     a.append(chapterTitle);
     li.append(a);
     ul.append(li);
 }
 
+// Video Player
+let player = videojs("video-player");
+let currentTime;
+let repeatID = null;
+
 function chapterClick() {
-    let target = document.getElementById("test");
-    target.innerHTML = "hoge!";
+    currentTime = player.currentTime();
+    let start_time = Number(chapters[this.id].start_time);
+    let end_time = Number(chapters[this.id].end_time);
+
+    if (currentTime != 0 &&  start_time <= currentTime && currentTime <= end_time){
+        repeatFlg = true;
+        repeatID = this.id;
+    }else {
+        repeatFlg = false;
+        repeatID = null;
+    }
+    console.log(repeatFlg);
+
+    player.ready(function () {
+        player.currentTime(start_time);
+        player.play();
+
+    });
 }
+
+function changeSetListState () {
+    let start_time, end_time, icon_elem, list_elem;
+    currentTime = player.currentTime();
+    console.log(currentTime);
+    for (i=0; i<chapters.length; i++){
+        start_time = Number(chapters[i].start_time);
+        end_time = Number(chapters[i].end_time);
+        icon_elem = document.getElementById("icon-" + chapters[i].id.toString());
+        list_elem = document.getElementById(chapters[i].id.toString());
+        if (repeatFlg && start_time < currentTime && currentTime < end_time){
+            icon_elem.className = "fa fa-repeat video-playing";
+            list_elem.className = "video-playing";
+        }else if (start_time < currentTime && currentTime < end_time){
+            icon_elem.className = "fa fa-play video-playing";
+            list_elem.className = "video-playing";
+        }else {
+            icon_elem.className = "fa fa-stop video-not-playing";
+            list_elem.className = "video-not-playing";
+        }
+
+    }
+};
+
+function repeatProcess (){
+    if (repeatFlg){
+        currentTime = player.currentTime();
+        if (currentTime >= Number(chapters[repeatID].end_time)){
+            player.currentTime(Number(chapters[repeatID].start_time));
+            player.play();
+        }
+    }
+    changeSetListState();
+}
+
+let timer = setInterval(repeatProcess, 200);
+// clearInterval(timer);

@@ -5,15 +5,14 @@
     <title>AKB48グループ映像倉庫</title>
     <link rel="shortcut icon" href="images/icon_64.dhg0000w000.png">
     <link rel="stylesheet" type="text/css" href="default.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Video.js -->
-    <link href="https://vjs.zencdn.net/7.5.5/video-js.css" rel="stylesheet" />
-    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -37,6 +36,7 @@
             </div>
         </div>
         <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+        <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-navicon"></i></a>
     </div>
 </div>
 
@@ -50,7 +50,7 @@
                     class="video-js vjs-big-play-centered vjs-16-9"
                     controls
                     preload="auto"
-                    data-setup="{}"
+                    data-setup="{'playbackRates': [0.5, 1, 1.25, 1.5, 2]}"
             >
                 <source src="nmb2_1.mp4" type="video/mp4" />
             </video>
@@ -69,12 +69,13 @@
 <!-- Meta Info -->
 <div class="global-container">
     <h1>メタ情報</h1>
-    <p id="test">映像解析で取得した女の子のデータとか入れたい</p>
+    <p>映像解析で取得した女の子のデータとか入れたい</p>
 </div>
 
 <!-- Related Video -->
 <div class="global-container">
     <h1>関連動画</h1>
+    <p>レコメンドアルゴリズムを開発</p>
 </div>
 
 <!-- Footer -->
@@ -84,7 +85,7 @@
     <p class="w3-medium">© AKS／© RecoChoku Co.,Ltd.</p>
 </footer>
 
-<script src="https://vjs.zencdn.net/7.5.5/video.js"></script>
+<script src="https://unpkg.com/video.js/dist/video.min.js"></script>
 <script src="video_player.js"></script>
 
 </body>

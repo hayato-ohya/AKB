@@ -34,7 +34,6 @@ ul.set-list{
 ul.set-list li{
     /*border-bottom:1px solid darkorchid;*/
 }
-
 ul.set-list li a{
     text-decoration: none;
     display: block;
@@ -47,6 +46,13 @@ ul.set-list li a{
 ul.set-list li a:hover{
     background:rgba(255,255,255,0.5);
 }
+.video-playing{
+    color: deeppink;
+}
+.video-not-playing{
+    color: aliceblue;
+}
+
 
 .video-date{
     color: darkgray;
