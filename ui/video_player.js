@@ -75,16 +75,16 @@ function chapterClick() {
 function changeSetListState () {
     let start_time, end_time, icon_elem, list_elem;
     currentTime = player.currentTime();
-    console.log(currentTime);
+    // console.log(currentTime);
     for (i=0; i<chapters.length; i++){
         start_time = Number(chapters[i].start_time);
         end_time = Number(chapters[i].end_time);
         icon_elem = document.getElementById("icon-" + chapters[i].id.toString());
         list_elem = document.getElementById(chapters[i].id.toString());
-        if (repeatFlg && start_time < currentTime && currentTime < end_time){
+        if (repeatFlg && start_time <= currentTime && currentTime < end_time){
             icon_elem.className = "fa fa-repeat video-playing";
             list_elem.className = "video-playing";
-        }else if (start_time < currentTime && currentTime < end_time){
+        }else if (currentTime !== 0 && start_time <= currentTime && currentTime < end_time){
             icon_elem.className = "fa fa-play video-playing";
             list_elem.className = "video-playing";
         }else {
@@ -98,7 +98,7 @@ function changeSetListState () {
 function repeatProcess (){
     if (repeatFlg){
         currentTime = player.currentTime();
-        if (currentTime >= Number(chapters[repeatID].end_time)){
+        if (currentTime >= Number(chapters[repeatID].end_time) - 0.2){ // adjust the repeat frame
             player.currentTime(Number(chapters[repeatID].start_time));
             player.play();
         }
@@ -106,5 +106,5 @@ function repeatProcess (){
     changeSetListState();
 }
 
-let timer = setInterval(repeatProcess, 200);
+let timer = setInterval(repeatProcess, 200); // 0.2s
 // clearInterval(timer);
