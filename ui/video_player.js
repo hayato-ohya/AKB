@@ -28,7 +28,7 @@ let repeatFlg = false;
 ul = document.getElementById("ul-set-list");
 for (i=0; i<chapters.length; i++){
     ic = document.createElement("i");
-    ic.className = "fa fa-stop";
+    ic.className = "fas fa-stop";
     ic.id = "icon-" + chapters[i].id.toString();
 
     a = document.createElement("a");
@@ -85,10 +85,10 @@ function changeSetListState () {
             icon_elem.className = "fa fa-repeat video-playing";
             list_elem.className = "video-playing";
         }else if (currentTime !== 0 && start_time <= currentTime && currentTime < end_time){
-            icon_elem.className = "fa fa-play video-playing";
+            icon_elem.className = "fas fa-play video-playing";
             list_elem.className = "video-playing";
         }else {
-            icon_elem.className = "fa fa-stop video-not-playing";
+            icon_elem.className = "fas fa-stop video-not-playing";
             list_elem.className = "video-not-playing";
         }
 

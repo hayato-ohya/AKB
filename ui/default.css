@@ -68,3 +68,22 @@ ul.set-list li a:hover{
     margin: 5% 1.5%;
     font-size: x-large;
 }
+
+/* Video.js */
+video {
+    filter: drop-shadow(0px 0px #000);
+}
+
+.video-js .vjs-play-progress{
+    background-color: deeppink;
+}
+.vjs-volume-panel .vjs-volume-level{
+    background-color: deeppink;
+}
+.video-js .vjs-big-play-button{
+    background-color: deeppink;
+    opacity: .6;
+}
+.video-js .vjs-control-bar{
+    background: transparent;
+}
