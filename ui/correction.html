@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>情報修正ページ</title>
+    <link rel="shortcut icon" href="images/icon_64.dhg0000w000.png">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="https://kit.fontawesome.com/cc91f730b7.js" crossorigin="anonymous"></script>
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Video.js -->
+    <link href="//unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+    <!-- Vis.js -->
+    <script type="text/javascript" src="//unpkg.com/vis-timeline@latest/dist/vis-timeline-graph2d.min.js"></script>
+    <link href="//unpkg.com/vis-timeline@latest/dist/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="default.css">
+</head>
+
+<body>
+
+
+<!-- Player -->
+    <div class="video-info">
+        <div id="video-title" class="video-title"></div>
+        <div id="video-date" class="video-date"></div>
+    </div>
+    <div class="player-global">
+        <!-- Video.js -->
+        <div class="player">
+            <video
+                    id="video-player"
+                    class="video-js vjs-big-play-centered vjs-16-9 vjs-big-play-button"
+                    controls
+                    preload="auto"
+                    data-setup="{'playbackRates': [0.5, 1, 1.25, 1.5, 2]}"
+            >
+                <source src="nmb2_1.mp4" type="video/mp4" style="border: hidden" />
+            </video>
+        </div>
+
+        <!-- Set list -->
+        <div class="set-list">
+            <ul class="set-list" id="ul-set-list"></ul>
+        </div>
+
+        <div id="timeline"></div>
+    </div>
+
+
+<script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+<script src="video_player.js"></script>
+
+</body>
+</html>
