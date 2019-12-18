@@ -106,5 +106,6 @@ function repeatProcess (){
     changeSetListState();
 }
 
-let timer = setInterval(repeatProcess, 200); // 0.2s
+player.on("timeupdate", repeatProcess);
+// let timer = setInterval(repeatProcess, 200); // 0.2s
 // clearInterval(timer);

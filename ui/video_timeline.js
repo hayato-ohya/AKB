@@ -1,6 +1,5 @@
 // DOM element where the Timeline will be attached
 let container = document.getElementById("video-timeline");
-let customDate = new Date();
 
 // Create a DataSet (allows two way data-binding)
 let items = new vis.DataSet();
@@ -56,6 +55,7 @@ options.max = convertTime2Date(Number(chapters[chapters.length -1].end_time));  
 // Create a Timeline
 let timeline = new vis.Timeline(container, items, options);
 
+// Load JSON data and set marker
 let marker_id = 0;
 for (let i=0; i<chapters.length; i++){
     marker_id = i;
@@ -75,9 +75,16 @@ timeline.on("doubleClick",
         }
     });
 
-
-// Playerとcustom barの連携
-player.on("timeupdate", hoge);
-function hoge() {
+// Associate Player with custom bar
+player.on("timeupdate", moveCurrentBar);
+function moveCurrentBar() {
+    timeline.setCurrentTime(convertTime2Date(player.currentTime()));
     console.log("player.currentTime()", player.currentTime());
 }
+// timeline.setCurrentTime.
+player.on("waiting", stopCurrentBar);
+function stopCurrentBar() {
+    timeline.setCurrentTime.call(stop())
+}
+
+// 上記を使うためのevent typeは何？
