@@ -21,6 +21,7 @@ let options = {
     max: new Date(2000, 1, 1, 23, 59, 59, 0),
     zoomMin: 10000,
     zoomFriction: 30,
+    showCurrentTime: true,
 };
 
 function convertTime2Date(inputTime) {
@@ -75,16 +76,90 @@ timeline.on("doubleClick",
         }
     });
 
+
 // Associate Player with custom bar
+let timer;
 player.on("timeupdate", moveCurrentBar);
 function moveCurrentBar() {
+    clearInterval(timer);
     timeline.setCurrentTime(convertTime2Date(player.currentTime()));
-    console.log("player.currentTime()", player.currentTime());
 }
-// timeline.setCurrentTime.
-player.on("waiting", stopCurrentBar);
+player.on("pause", stopCurrentBar);
 function stopCurrentBar() {
-    timeline.setCurrentTime.call(stop())
+    timer = setInterval(setIntervalWrapper, 10);
+    console.log("Stop", player.currentTime());
+}
+function setIntervalWrapper() {
+    timeline.setCurrentTime(convertTime2Date(player.currentTime()));
 }
 
-// 上記を使うためのevent typeは何？
+// Add the flag at the current time
+function setCustomTime() {
+    marker_id = marker_id + 1;
+    timeline.addCustomTime(convertTime2Date(player.currentTime()), marker_id);
+    timeline.setCustomTimeMarker("New Chapter", marker_id, true);
+}
+
+// Undo Redo
+let commands = [];
+let commandIdx = 0;
+let groupCommand = null;
+
+function recordCommand(name, params, funcDo, funcUndo) {
+    // Add new command
+    let newCommand = {"Name":name, "Params": params, "Do": funcDo, "Undo": funcUndo, };
+    if (groupCommand) {
+        groupCommand.commands.push(newCommand);
+    } else {
+        // Delete the last command
+        if (commandIdx < commands.length){
+            commands.splice(commandIdx, commands.length - commandIdx);
+        }
+        commands.push(newCommand);
+        commandIdx++;
+    }
+    newCommand.Do();
+}
+function startGroupRecording(name) {
+    groupCommand = {"name":name, "commands":[]};
+}
+function finishGroupRecording() {
+    let name = groupCommand.name;
+    let params = {"commands": groupCommand.commands};
+    groupCommand = null;
+
+    if (params.length <= 0){
+        return;
+    }
+    recordCommand(
+        name,
+        params,
+        function () {
+            for (let i=0; i<this.Params.commands.length; i++){
+                this.Params.commands[i].Do();
+            }
+        },
+        function () {
+            for (let i=0; i<this.Params.commands.length; i++){
+                this.Params.commands[i].Undo();
+            }
+        }
+    );
+}
+
+document.getElementById("button-undo").onclick = function () {
+    if (commandIdx <= 0){
+        return;
+    }
+    commandIdx--;
+    commands[commandIdx].Do();
+};
+document.getElementById("button-redo").onclick = function () {
+    if (commands.length <= commandIdx){
+        return;
+    }
+    commands[commandIdx].Do();
+    commandIdx++;
+};
+
+// データ書き出し

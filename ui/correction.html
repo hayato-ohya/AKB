@@ -50,11 +50,22 @@
             <ul class="set-list" id="ul-set-list"></ul>
         </div>
     </div>
-    <div class="video-info">
-        <div id="video-title" class="video-title"></div>
-        <div id="video-date" class="video-date"></div>
+
+    <div class="under-player">
+        <div class="video-info">
+            <div id="video-title" class="video-title"></div>
+            <div id="video-date" class="video-date"></div>
+        </div>
+        <div class="navigation">
+            <button onclick="setCustomTime()">現在位置にフラグ</button>
+            <button id="button-undo">Undo</button>
+            <button id="button-redo">Redo</button>
+            <button id="button-save">Save</button>
+        </div>
     </div>
-        <div id="video-timeline"></div>
+
+    <!-- Video timeline -->
+    <div id="video-timeline"></div>
 
 <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
 <script src="video_player.js"></script>

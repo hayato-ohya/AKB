@@ -5,3 +5,14 @@ div.vis-readonly.vis-selected {
     border-color: red;
     color: white;
 }
+
+.video-info {
+    width: 70%;
+}
+.navigation {
+    width: 30%;
+    float: right;
+}
+.under-player {
+    display: flex;
+}
