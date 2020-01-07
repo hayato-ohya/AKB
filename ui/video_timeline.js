@@ -57,11 +57,13 @@ options.max = convertTime2Date(Number(chapters[chapters.length -1].end_time));  
 let timeline = new vis.Timeline(container, items, options);
 
 // Load JSON data and set marker
+let markers = [];
 let marker_id = 0;
 for (let i=0; i<chapters.length; i++){
     marker_id = i;
     timeline.addCustomTime(convertTime2Date(chapters[i].start_time), marker_id);
     timeline.setCustomTimeMarker(chapters[i].title, marker_id, true);
+    markers.push({id: marker_id, time: convertTime2Date(chapters[i].start_time), title: chapters[i].title});
 }
 
 timeline.on("doubleClick",
@@ -152,7 +154,7 @@ document.getElementById("button-undo").onclick = function () {
         return;
     }
     commandIdx--;
-    commands[commandIdx].Do();
+    commands[commandIdx].Undo();
 };
 document.getElementById("button-redo").onclick = function () {
     if (commands.length <= commandIdx){
@@ -161,5 +163,50 @@ document.getElementById("button-redo").onclick = function () {
     commands[commandIdx].Do();
     commandIdx++;
 };
+
+timeline.on("timechanged", function (properties) {
+    let prevTime = null;
+    let i;
+    for (i=0; i<markers.length; i++){
+        if (markers[i].id == properties.id){
+            prevTime = markers[i].time;
+            break;
+        }
+    }
+
+    recordCommand("Move",
+        {id: properties.id, previousTime: prevTime, updateTime: properties.time},
+        function (){
+            timeline.setCustomTime(this.Params.updateTime, this.Params.id);
+        },
+        function (){
+            timeline.setCustomTime(this.Params.previousTime, this.Params.id);
+        });
+
+    markers[i].time = properties.time;
+});
+
+timeline.on("markerchanged", function (properties) {
+    let prevTitle = null;
+    let i;
+    for (i=0; i<markers.length; i++){
+        if (markers[i].id == properties.id){
+            prevTitle = markers[i].title;
+            break;
+        }
+    }
+    let tmpTitle = properties.title.replace("<br>", "");
+
+    recordCommand("TitleChange",
+        {id: properties.id, previousTitle: prevTitle, updateTitle: tmpTitle},
+        function () {
+            timeline.setCustomTimeMarker(this.Params.updateTitle, this.Params.id, true);
+        },
+        function () {
+            timeline.setCustomTimeMarker(this.Params.previousTitle, this.Params.id, true);
+        });
+
+    markers[i].title = tmpTitle;
+});
 
 // データ書き出し

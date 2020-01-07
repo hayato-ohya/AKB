@@ -50,6 +50,7 @@ for (i=0; i<chapters.length; i++){
 let player = videojs("video-player");
 let currentTime;
 let repeatID = null;
+player.volume(0.5);
 
 function chapterClick() {
     currentTime = player.currentTime();
