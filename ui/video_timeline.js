@@ -70,13 +70,44 @@ timeline.on("doubleClick",
     function (properties) {
         let eventProps = timeline.getEventProperties(properties.event);
         if(eventProps.what === "custom-time"){
-            timeline.removeCustomTime(eventProps.customTime);
+            // timeline.removeCustomTime(eventProps.customTime);
+            let i, tmpTitle;
+            for (i=0; i<markers.length; i++){
+                if (markers[i].id == eventProps.customTime){
+                    tmpTitle = markers[i].title;
+                    break;
+                }
+            }
+            recordCommand("Remove",
+                {id: eventProps.customTime, marker_time: eventProps.time, title: tmpTitle},
+                function (){
+                    timeline.removeCustomTime(this.Params.id);
+                },
+                function () {
+                    addTimelineMarker(this.Params.marker_time, this.Params.id, this.Params.title);
+                })
         } else {
             marker_id = marker_id + 1;
-            timeline.addCustomTime(eventProps.time, marker_id);
-            timeline.setCustomTimeMarker("New Chapter", marker_id, true);
+            // timeline.addCustomTime(eventProps.time, marker_id);
+            // timeline.setCustomTimeMarker("New Chapter", marker_id, true);
+            recordCommand("Add",
+                {id: marker_id, marker_time: eventProps.time, title: "New Chapter"},
+                function (){
+                    addTimelineMarker(this.Params.marker_time, this.Params.id);
+                },
+                function () {
+                    timeline.removeCustomTime(this.Params.id);
+                })
         }
     });
+
+function addTimelineMarker (time, id, title){
+    if (title == undefined){
+        title = "New Chapter"
+    }
+    timeline.addCustomTime(time, id);
+    timeline.setCustomTimeMarker(title, id, true);
+}
 
 
 // Associate Player with custom bar
