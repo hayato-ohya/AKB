@@ -85,6 +85,8 @@ log_S = librosa.power_to_db(S, ref=np.max)
 mfcc = librosa.feature.mfcc(S=log_S, n_mfcc=13)
 delta_mfcc = librosa.feature.delta(mfcc)
 delta2_mfcc = librosa.feature.delta(mfcc, order=2)
+tempo = librosa.beat.tempo(y=y, aggregate=None)
+delta_tempo = np.abs(librosa.feature.delta(tempo))
 # spec_bw = librosa.feature.spectral_bandwidth(y=y, sr=sr)
 # cent = librosa.feature.spectral_centroid(y=y, sr=sr)
 # contrast = librosa.feature.spectral_contrast(S=np.abs(librosa.stft(y)), sr=sr)
@@ -98,7 +100,7 @@ delta2_mfcc = librosa.feature.delta(mfcc, order=2)
 
 rms = rms[0]
 
-# %% Detect the intervals
+# %% Detect the intervals (RMS)
 division_time = []
 for elem in all_data['akb']:
     division_time.append(elem['start_time'])
@@ -140,3 +142,7 @@ for start_frame, end_frame in consecutive_frames:
             division_candidate.append(np.int32(start_frame + frame_median))
 
         division_candidate.sort()
+
+# %% Detect the interval (tempo)
+# get the indices values where rms < -3σ
+std3_tempo = np.where(delta_tempo > np.mean(delta_tempo) + 3 * np.std(delta_tempo))[0]
