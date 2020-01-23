@@ -144,5 +144,5 @@ for start_frame, end_frame in consecutive_frames:
         division_candidate.sort()
 
 # %% Detect the interval (tempo)
-# get the indices values where rms < -3σ
+# get the indices values where tempo > 3σ
 std3_tempo = np.where(delta_tempo > np.mean(delta_tempo) + 3 * np.std(delta_tempo))[0]
